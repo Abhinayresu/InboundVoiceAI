@@ -50,6 +50,33 @@ def write_config(data):
     config.update(data)
     with open(CONFIG_FILE, "w") as f:
         json.dump(config, f, indent=4)
+    
+    # Save to .env as well
+    import dotenv
+    env_file = ".env"
+    if not os.path.exists(env_file):
+        open(env_file, 'w').close()
+        
+    env_mapping = {
+        "livekit_url": "LIVEKIT_URL",
+        "sip_trunk_id": "SIP_TRUNK_ID",
+        "livekit_api_key": "LIVEKIT_API_KEY",
+        "livekit_api_secret": "LIVEKIT_API_SECRET",
+        "openai_api_key": "OPENAI_API_KEY",
+        "sarvam_api_key": "SARVAM_API_KEY",
+        "cal_api_key": "CAL_API_KEY",
+        "cal_event_type_id": "CAL_EVENT_TYPE_ID",
+        "telegram_bot_token": "TELEGRAM_BOT_TOKEN",
+        "telegram_chat_id": "TELEGRAM_CHAT_ID",
+        "supabase_url": "SUPABASE_URL",
+        "supabase_key": "SUPABASE_KEY"
+    }
+    
+    for json_key, env_key in env_mapping.items():
+        if json_key in data:
+            val = str(data[json_key]).strip()
+            if val:  # Only write non-empty values
+                dotenv.set_key(env_file, env_key, val)
 
 # ── API Endpoints ──────────────────────────────────────────────────────────────
 
