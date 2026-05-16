@@ -51,7 +51,7 @@ python3.11 --version
 ## Step 2 — Clone the repository
 
 ```bash
-git https://github.com/Abhinayresu/InboundVoiceAI.git
+git clone https://github.com/Abhinayresu/InboundVoiceAI.git
 cd InboundVoiceAI
 ```
 
